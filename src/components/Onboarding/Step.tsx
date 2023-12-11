@@ -27,16 +27,6 @@ const object = [
 	},
 ];
 
-// const StyledView = styled.View`
-// 	display: absolute;
-// 	bottom: 0;
-// 	height: 300px;
-// 	width: 100%;
-// 	align-items: center;
-// 	background-color: black;
-// 	border-top-right-radius: 40px;
-// 	border-top-left-radius: 40px;
-// `;
 const StyledViewContainer = styled.View`
 	flex: 1;
 	flex-direction: column;
@@ -52,7 +42,7 @@ const StyledTextTitle = styled.Text`
 `;
 
 const StyledTextSmall = styled.Text`
-	color: #808080;
+	color: ${(props) => props.theme.colors.greenMain};
 	font-size: 14px;
 	margin-top: 16px;
 	text-align: center;
@@ -60,7 +50,7 @@ const StyledTextSmall = styled.Text`
 
 const StyledButton = styled(Button)`
 	margin-top: 32px;
-	color: ${(props) => props.theme.colors?.primary};
+	color: bisque;
 	width: 327px;
 	height: 56px;
 `;

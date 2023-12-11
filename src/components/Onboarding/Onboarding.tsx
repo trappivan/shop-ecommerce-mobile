@@ -20,7 +20,7 @@ const StyledView = styled.View`
 `;
 
 const StyledViewContainer = styled.View`
-	background-color: ${(props) => props.theme.colors.grayThrid};
+	background-color: gray;
 	flex: 1;
 	align-items: "center";
 	justify-content: "center";
