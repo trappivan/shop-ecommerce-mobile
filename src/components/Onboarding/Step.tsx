@@ -1,135 +1,101 @@
-import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import styled from "styled-components/native";
-import { Button } from "react-native-paper";
-import { Container } from "../../config/style";
+import React, { useMemo, useState } from "react";
+import { Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link, useNavigation } from "@react-navigation/native";
-
-const object = [
-  {
-    index: 0,
-    label:
-      "Browse thousands of products, from fashion to tech. Find what you love, effortlessly.",
-    title: "Discover Our Products",
-    button: "Next",
-    image: require("../../../assets/step1.png"),
-  },
-  {
-    index: 1,
-    label:
-      "Seamless payments and speedy delivery. Start shopping smarter today.",
-    title: "Hassle-Free Checkout",
-    button: "Next",
-    image: require("../../../assets/step2.png"),
-  },
-  {
-    index: 2,
-    label: "Start shopping now and enjoy a world of convenience!",
-    title: "Easy and Happy Shopping",
-    button: "Get Started",
-    image: require("../../../assets/step3.png"),
-  },
-];
-
-const StyledViewContainer = styled.View`
-  background-color: ${(props) => props.theme.colors.grayMain};
-  display: flex;
-  justify-content: space-between;
-`;
-const StyledViewImage = styled.View`
-  display: flex;
-  height: 65%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledViewContainerA = styled.View`
-  display: flex;
-  flex-direction: column;
-  height: 35%;
-  align-items: center;
-  width: max-content;
-  border-top-right-radius: 50px;
-  border-top-left-radius: 50px;
-  background-color: ${(props) => props.theme.colors.grayBlack};
-`;
-
-const StyledTextTitle = styled.Text`
-  color: #fbfbfb;
-  font-size: 24px;
-  margin-top: 32px;
-`;
-
-const StyledTextSmall = styled.Text`
-  color: ${(props) => props.theme.colors.grayText};
-  font-size: 14px;
-  margin-top: 16px;
-  text-align: center;
-  height: 35px;
-  width: 80%;
-  border-color: red;
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 32px;
-  background-color: ${(props) => props.theme.colors.greenMain};
-  justify-content: center;
-
-  width: 327px;
-  height: 56px;
-`;
-const TextNext = styled(Text)`
-  color: ${(props) => props.theme.colors.grayBlack};
-`;
-const StyledBottomView = styled.View`
-  display: flex;
-  flex-direction: row;
-  margin-top: 16px;
-  height: fit-content;
-  width: fit-content;
-`;
-const StyledTextAlreadyLogged = styled(Text)`
-  font-size: 14px;
-  color: ${(props) => props.theme.colors.grayText};
-`;
-const StyledLink = styled(Link)`
-  margin-left: 8px;
-  color: white;
-`;
+import { Box, StyledButton, StyledText } from "../../style/styles";
+import { useTheme } from "styled-components";
 
 export default function Step() {
-  const [step, setStep] = useState(0);
-  const navigation = useNavigation();
-
-  function handleClick() {
-    if (step == 2) {
-      navigation.navigate("Login");
-      return;
-    }
-    setStep(step + 1);
-  }
-  return (
-    <>
-      <StyledViewContainer>
-        <StyledViewImage>
-          <Image width={327} height={327} source={object[step].image} />
-        </StyledViewImage>
-        <StyledViewContainerA>
-          <StyledTextTitle>{object[step].title}</StyledTextTitle>
-          <StyledTextSmall>{object[step].label}</StyledTextSmall>
-          <StyledButton onPress={handleClick}>
-            <TextNext>{object[step].button}</TextNext>
-          </StyledButton>
-          <StyledBottomView>
-            <StyledTextAlreadyLogged>
-              Already have an account ?
-            </StyledTextAlreadyLogged>
-            <StyledLink to={{ screen: "Login" }}>Log in</StyledLink>
-          </StyledBottomView>
-        </StyledViewContainerA>
-      </StyledViewContainer>
-      <StatusBar style="light" />
-    </>
-  );
+	const [step, setStep] = useState(0);
+	const navigation = useNavigation();
+	const theme = useTheme();
+	const object = useMemo(
+		() => [
+			{
+				index: 0,
+				label:
+					"Browse thousands of products, from fashion to tech. Find what you love, effortlessly.",
+				title: "Discover Our Products",
+				button: "Next",
+				image: require("../../../assets/step1.png"),
+			},
+			{
+				index: 1,
+				label:
+					"Seamless payments and speedy delivery. Start shopping smarter today.",
+				title: "Hassle-Free Checkout",
+				button: "Next",
+				image: require("../../../assets/step2.png"),
+			},
+			{
+				index: 2,
+				label: "Start shopping now and enjoy a world of convenience!",
+				title: "Easy and Happy Shopping",
+				button: "Get Started",
+				image: require("../../../assets/step3.png"),
+			},
+		],
+		[]
+	);
+	function handleClick() {
+		if (step == 2) {
+			navigation.navigate("Login");
+			return;
+		}
+		setStep(step + 1);
+	}
+	return (
+		<>
+			<Box
+				display="flex"
+				justify="space-between"
+				backgroundColor={theme.colors.grayMain}>
+				<Box height="65%" display="flex" justify="center" align="center">
+					<Image width={327} height={327} source={object[step].image} />
+				</Box>
+				<Box
+					display="flex"
+					direction="column"
+					height="35%"
+					align="center"
+					borderTopLeftRadius="50px"
+					borderTopRightRadius="50px"
+					backgroundColor={theme.colors.grayBlack}
+					width="100%">
+					<StyledText color="white" marginTop="32px" fontSize="24px">
+						{object[step].title}
+					</StyledText>
+					<StyledText
+						color={theme.colors.grayText}
+						marginTop="16px"
+						height="35px"
+						width="80%">
+						{object[step].label}
+					</StyledText>
+					<StyledButton
+						marginTop="24px"
+						backgroundColor={theme.colors.greenMain}
+						width="327px"
+						height="56px"
+						justify="center"
+						onPress={handleClick}>
+						<StyledText color={theme.colors.grayBlack}>
+							{object[step].button}
+						</StyledText>
+					</StyledButton>
+					<Box display="flex" marginTop="16px" direction="row" justify="center">
+						<StyledText color={theme.colors.grayText}>
+							Already have an account ?
+						</StyledText>
+						<Link
+							style={{ marginLeft: 8, color: "white" }}
+							to={{ screen: "Login" }}>
+							Log in
+						</Link>
+					</Box>
+				</Box>
+			</Box>
+			<StatusBar style="light" />
+		</>
+	);
 }
