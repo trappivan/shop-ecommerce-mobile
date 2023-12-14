@@ -9,81 +9,24 @@ import * as z from "zod";
 
 import { useTheme } from "styled-components";
 import styled from "styled-components/native";
-import { Box } from "../../style/styles";
-
-// export const Box = styled(View)`
-//   height: 100%;
-//   width: max-content;
-//   z-index: 10;
-//   background-color: ${(props) => props.backgroundColor};
-//`;
-export const BoxImage = styled(View)`
-  height: ${(props) => props.height};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-export const BoxLogin = styled(View)`
-  height: ${(props) => props.height};
-  border-top-right-radius: 50px;
-  z-index: 50;
-  border-top-left-radius: 50px;
-  background-color: ${(props) => props.theme.colors.grayBlack};
-  display: flex;
-  align-items: center;
-`;
-export const BoxText = styled(View)`
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-`;
-export const BoxInput = styled(View)`
-  display: flex;
-  z-index: 100;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-`;
-// const StyledTextInput = styled(TextInput)`
-// 	width: 80%;
-// `;
-
-interface Inputs {
-  login: string;
-  password: string;
-}
-
-export const StyledButton = styled(Button)`
-  background-color: ${(props) => props.theme.colors.greenMain};
-  justify-content: center;
-
-  width: 327px;
-  height: 56px;
-`;
-export const TextLogin = styled(Text)`
-  color: ${(props) => props.theme.colors.grayBlack};
-`;
-export const BoxSignUp = styled(View)`
-  border: 10px;
-
-  border-color: red;
-  display: flex;
-  flex-direction: row;
-`;
-
-export const TextStyled = styled(Text)`
-  color: ${(props) => props.theme.colors.grayText};
-`;
+import {
+  Box,
+  BoxImage,
+  BoxInput,
+  BoxLogin,
+  StyledButton,
+  TextLogin,
+} from "../login";
 
 const schema = z
   .object({
-    login: z.string(),
-    password: z.string().min(5),
+    mobile_number: z.string().min(12),
+    password: z.string(),
+    confirmPassword: z.string(),
   })
   .required();
 
-export default function Login() {
+export default function Register() {
   const {
     register,
     handleSubmit,
@@ -94,38 +37,38 @@ export default function Login() {
     trigger,
   } = useForm({
     defaultValues: {
-      login: "",
+      mobile_number: "",
       password: "",
+      confirmPassword: "",
     },
     resolver: zodResolver(schema),
   });
 
   const navigation = useNavigation();
-  const login = watch("login");
+  const login = watch("mobile_number");
   const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
   const theme = useTheme();
   const onSubmit = (data: any) => {
     console.log("Submitted", data);
     console.log("Submitted", isSubmitSuccessful);
-    trigger(["login", "password"]).then((isValid) => {
-      if (isValid) {
-        navigation.navigate("Home", { params: { bomba: 1 } });
+    trigger(["mobile_number", "password", "confirmPassword"]).then(
+      (isValid) => {
+        if (isValid) {
+          navigation.navigate("Home", { params: { bomba: 1 } });
+        }
       }
-    });
+    );
   };
   return (
-    <Box width="100%" height="100%" backgroundColor={theme.colors.grayMain}>
-      <BoxImage height="50%">
+    <Box>
+      <BoxImage>
         <Image source={require("../../../assets/logo.png")} />
       </BoxImage>
-      <BoxLogin height="50%">
-        <BoxText>
-          <Text>Welcome</Text>
-          <Text>Enter your details below</Text>
-        </BoxText>
+      <BoxLogin height={7000}>
         <BoxInput>
           <TextInput
-            {...(register("login"), { required: true })}
+            {...(register("mobile_number"), { required: true })}
             textColor="white"
             mode="outlined"
             keyboardType="numeric"
@@ -141,7 +84,7 @@ export default function Login() {
             value={mask(login, "(99) 9 9999-9999")}
             maxLength={16}
             onChangeText={(text) => {
-              setValue("login", unMask(text));
+              setValue("mobile_number", unMask(text));
             }}
           />
           <TextInput
@@ -160,14 +103,26 @@ export default function Login() {
               setValue("password", text);
             }}
           />
+          <TextInput
+            {...(register("password"), { required: true })}
+            mode="outlined"
+            value={password}
+            secureTextEntry
+            right={<TextInput.Icon icon="eye" />}
+            outlineColor={theme.colors.greenMain}
+            activeOutlineColor={theme.colors.greenMain}
+            textColor="white"
+            style={{ backgroundColor: theme.colors.grayMain, width: "80%" }}
+            label="Confirm password"
+            placeholder="Confirm password"
+            onChangeText={(text) => {
+              setValue("confirmPassword", text);
+            }}
+          />
           <StyledButton onPress={handleSubmit(onSubmit)}>
             <TextLogin>Enter</TextLogin>
           </StyledButton>
         </BoxInput>
-        <BoxSignUp>
-          <TextStyled>Don't have an account? </TextStyled>
-          <Link to={{ screen: "Register" }}>Sign Up</Link>
-        </BoxSignUp>
       </BoxLogin>
     </Box>
   );
