@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import { PaperProvider, MD3DarkTheme, useTheme } from "react-native-paper";
 import Onboarding from "./src/components/Onboarding/Onboarding";
 //import { theme } from "./src/config/theme";
