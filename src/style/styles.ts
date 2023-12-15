@@ -21,14 +21,16 @@ export const Box = styled(View)`
 	padding-bottom: ${(props) => props.paddingBottom};
 	margin: ${(props) => props.margin || 0};
 	margin-top: ${(props) => props.marginTop || "0px"};
+	margin-bottom: ${(props) => props.marginBottom || "0px"};
 	border-radius: ${(props) => props.borderRadius || "0px"};
 	border: ${(props) => props.border || "none"};
 	border-top-left-radius: ${(props) => props.borderTopLeftRadius || "0px"};
 	border-top-right-radius: ${(props) => props.borderTopRightRadius || "0px"};
 `;
 export const StyledText = styled(Text)`
-	text-align: ${(props) => props.textAlign || "center"};
+	text-align: ${(props) => props.textAlign || "auto"};
 	margin-top: ${(props) => props.marginTop || "0px"};
+	margin-right: ${(props) => props.marginRight || "0px"};
 	width: ${(props) => props.width || "fit-content"};
 	height: ${(props) => props.height || "auto"};
 	font-size: ${(props) => props.fontSize || "14px"};
@@ -39,6 +41,9 @@ export const StyledButton = styled(Button)`
 	background-color: ${(props) =>
 		props.backgroundColor || props.theme.colors.greenMain};
 	justify-content: ${(props) => props.justify || ""};
+	flex-direction: ${(props) => props.direction || ""};
+	display: ${(props) => props.display || ""};
+	gap: ${(props) => props.gap || "0px"};
 	margin-top: ${(props) => props.marginTop || "0px"};
 	/* align-items: ${(props) => props.align || ""}; */
 	width: ${(props) => props.width || "100%"};
