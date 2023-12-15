@@ -1,13 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text } from "react-native";
 import { Box } from "../../../style/styles";
 import { useTheme } from "styled-components";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Coupon from "./coupon";
+import Products from "./products";
+import { useNavigation } from "@react-navigation/native";
+import { IconButton } from "react-native-paper";
+import Page from "./page";
 
 export default function Home() {
-	const theme = useTheme();
-	return (
-		<Box backgroundColor={theme.colors.grayMain} width="100%" height="100%">
-			<Text>Home</Text>
-		</Box>
-	);
+  const theme = useTheme();
+  const Stack = createNativeStackNavigator();
+
+  const navigation = useNavigation();
+  console.log(navigation);
+
+  return (
+    // <Box backgroundColor={theme.colors.grayMain} width="100%" height="100%">
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Page"
+        component={Page}
+        options={{
+          headerLeft: () => {
+            return (
+              <IconButton
+                icon={require("../../../../assets/icons/chevron-left.png")}
+                onPress={() => navigation.goBack()}
+              />
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Coupon"
+        component={Coupon}
+        options={{
+          headerLeft: () => {
+            return (
+              <IconButton
+                icon={require("../../../../assets/icons/chevron-left.png")}
+                onPress={() => navigation.goBack()}
+              />
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Products"
+        component={Products}
+        options={{
+          headerLeft: () => {
+            return (
+              <IconButton
+                icon={require("../../../../assets/icons/chevron-left.png")}
+                onPress={() => navigation.goBack()}
+              />
+            );
+          },
+        }}
+      />
+    </Stack.Navigator>
+    // </Box>
+  );
 }
