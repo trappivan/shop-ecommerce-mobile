@@ -6,6 +6,7 @@ import { useTheme } from "styled-components";
 import FlashSales from "./FlashSales";
 import { View } from "react-native";
 import { Searchbar } from "react-native-paper";
+import ProductsCard from "./ProductsCard";
 
 export default function Page() {
 	const navigation = useNavigation();
@@ -34,6 +35,7 @@ export default function Page() {
 				/>
 			</Box>
 			<FlashSales />
+			<ProductsCard productType="1" />
 		</Box>
 	);
 }

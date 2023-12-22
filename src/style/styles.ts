@@ -23,6 +23,7 @@ export const Box = styled(View)`
 	margin-top: ${(props) => props.marginTop || "0px"};
 	margin-bottom: ${(props) => props.marginBottom || "0px"};
 	border-radius: ${(props) => props.borderRadius || "0px"};
+	border-color: ${(props) => props.borderColor || "none"};
 	border: ${(props) => props.border || "none"};
 	border-top-left-radius: ${(props) => props.borderTopLeftRadius || "0px"};
 	border-top-right-radius: ${(props) => props.borderTopRightRadius || "0px"};
